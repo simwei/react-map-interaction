@@ -35,6 +35,7 @@ class MapInteraction extends Component {
       }),
       minScale: PropTypes.number,
       maxScale: PropTypes.number,
+      scaleChangeFactor: PropTypes.number,
       showControls: PropTypes.bool,
       plusBtnContents: PropTypes.node,
       minusBtnContents: PropTypes.node,
@@ -49,6 +50,7 @@ class MapInteraction extends Component {
     return {
       minScale: 0.05,
       maxScale: 3,
+      scaleChangeFactor: 10,
       showControls: false,
       translationBounds: {},
       disableZoom: false,
@@ -236,7 +238,7 @@ class MapInteraction extends Component {
     e.preventDefault();
     e.stopPropagation();
 
-    const scaleChange = 2 ** (e.deltaY * 0.002);
+    const scaleChange = 2 ** (e.deltaY * 0.002 * this.props.scaleChangeFactor);
 
     const newScale = clamp(
       this.props.minScale,

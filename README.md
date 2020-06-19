@@ -4,6 +4,11 @@ Add map like zooming and panning to any React element. This works on both touch 
 
 ![example zooming map](./example.gif)
 
+## Changes
+
+- Still be able to use React 15
+- Allow for faster mouse wheel zoom speed
+
 ## Install
 ```bash
 npm install --save react-map-interaction
