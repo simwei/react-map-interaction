@@ -85,14 +85,11 @@ function makeWheelEvent(deltaY = 1) {
   return evt;
 }
 
-// Utility for mounting an RMI instance and getting back some useful
+// Utility for mounting an RMI instance and gettinb back some useful
 // handles on the wrapper and sub nodes
-// Note that it creates an uncontrolled instance
 function makeDefaultWrapper(scale = 1, translation = { x: 0, y: 0 }) {
   const wrapper = mount(
-    <MapInteractionCSS
-      defaultValue={{ scale, translation }}
-    >
+    <MapInteractionCSS scale={scale} translation={translation}>
       <div className="child">hello</div>
     </MapInteractionCSS>
   );
@@ -225,8 +222,8 @@ describe("Use case testing", () => {
       <MapInteractionCSS
         showControls
         plusBtnClass="plus-button"
-        defaultScale={initialScale}
-        defaultTranslation={initialTranslation}
+        scale={initialScale}
+        translation={initialTranslation}
       >
         <div className="child" />
       </MapInteractionCSS>

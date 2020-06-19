@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
@@ -8,7 +8,7 @@ import gridImg from './grid.png';
 const BLUE_BORDER = '1px solid blue';
 
 storiesOf('MapInteractionCSS', module)
-  .add('Basic uncontrolled', () => {
+  .add('Grid', () => {
     return (
       <div style={{ width: 500, height: 500, border: BLUE_BORDER }}>
         <MapInteractionCSS>
@@ -17,83 +17,14 @@ storiesOf('MapInteractionCSS', module)
       </div>
     )
   })
-  .add('Basic controlled', () => {
-    class Controller extends Component {
-      constructor(props) {
-        super(props);
-        this.state = {
-          value: {
-            scale: 1, translation: { x: 0, y: 0 }
-          }
-        };
-      }
-
-      render() {
-        return (
-          <div style={{ width: 500, height: 500, border: BLUE_BORDER }}>
-            <MapInteractionCSS
-              value={this.state.value}
-              onChange={(value) => {
-                this.setState({ value });
-              }}
-              showControls
-            >
-              <img src={gridImg} style={{ pointerEvents: 'none' }} alt="" />
-            </MapInteractionCSS>
-          </div>
-        );
-      }
-    }
-
-    return <Controller />;
-  })
-  .add('Flip controlled to uncontrolled', () => {
-    class Controller extends Component {
-      constructor(props) {
-        super(props);
-        this.state = {
-          value: {
-            scale: 1,
-            translation: { x: 0, y: 0 }
-          },
-          controlled: true
-        };
-      }
-
-      render() {
-        const { controlled, scale, translation } = this.state;
-
-        return (
-          <div style={{ width: 500, height: 500, border: BLUE_BORDER }}>
-            <MapInteractionCSS
-              value={controlled ? this.state.value : undefined}
-              onChange={controlled ? (value) => this.setState({ value }) : undefined}
-              showControls
-            >
-              <img src={gridImg} style={{ pointerEvents: 'none' }} alt="" />
-            </MapInteractionCSS>
-            <button
-              onClick={() => {
-                this.setState((state) => {
-                  return { controlled: !state.controlled };
-                });
-              }}
-            >
-              flip
-            </button>
-          </div>
-        );
-      }
-    }
-
-    return <Controller />;
-  })
   .add('Button inside', () => {
     return (
       <div style={{ width: 500, height: 500, border: BLUE_BORDER }}>
         <MapInteractionCSS>
           <button
             onClick={(e) => {
+              console.log('inside on click')
+              console.log("e.defaultPrevented: ", e.defaultPrevented);
               if (e.defaultPrevented) {
                 action('Drag!')();
               } else {
@@ -101,6 +32,8 @@ storiesOf('MapInteractionCSS', module)
               }
             }}
             onTouchEnd={(e) => {
+              console.log('inside on click')
+              console.log("e.defaultPrevented: ", e.defaultPrevented);
               if (e.defaultPrevented) {
                 action('Drag!')();
               } else {
